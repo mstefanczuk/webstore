@@ -2,9 +2,6 @@ package com.packt.webstore.domain;
 
 import java.math.BigDecimal;
 
-/**
- * Created by Stefan on 2016-12-08.
- */
 public class Product {
     private String productId;
     private String name;
