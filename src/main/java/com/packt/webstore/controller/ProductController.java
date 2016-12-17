@@ -1,5 +1,6 @@
 package com.packt.webstore.controller;
 
+import com.packt.webstore.domain.Product;
 import com.packt.webstore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,8 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 @Controller
@@ -49,5 +52,23 @@ public class ProductController {
     public String getProductById(@RequestParam("id") String productId, Model model) {
         model.addAttribute("product", productService.getProductById(productId));
         return "product";
+    }
+
+    @RequestMapping("/{category}/{ByPrice}")
+    public String filterProducts(Model model, @PathVariable String category,
+                                 @MatrixVariable(pathVar = "ByPrice") Map<String, List<String>> filterParams,
+                                 @RequestParam String manufacturer) {
+        List<Product> productsByCategory = productService.getProductsByCategory(category);
+        Set<Product> productsByPrice = productService.getProductsByPriceFilter(filterParams);
+        List<Product> productsByManufacturer = productService.getProductsByManufacturer(manufacturer);
+
+        Set<Product> mergedSet = new HashSet<Product>();
+        mergedSet.addAll(productsByCategory);
+        mergedSet.addAll(productsByPrice);
+        mergedSet.addAll(productsByManufacturer);
+
+        model.addAttribute("products", mergedSet);
+
+        return "products";
     }
 }

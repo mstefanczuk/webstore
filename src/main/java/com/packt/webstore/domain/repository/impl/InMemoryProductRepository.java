@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 @Repository
-public class InMemoryProductRepository implements ProductRepository{
+public class InMemoryProductRepository implements ProductRepository {
 
     private List<Product> listOfProducts = new ArrayList<Product>();
 
@@ -46,14 +46,14 @@ public class InMemoryProductRepository implements ProductRepository{
 
     public Product getProductById(String productId) {
         Product productById = null;
-        for(Product product : listOfProducts) {
-            if(product != null && product.getProductId() != null &&
+        for (Product product : listOfProducts) {
+            if (product != null && product.getProductId() != null &&
                     product.getProductId().equals(productId)) {
                 productById = product;
                 break;
             }
         }
-        if(productById == null) {
+        if (productById == null) {
             throw new IllegalArgumentException("Brak produktu o wskazanym id: " + productId);
         }
         return productById;
@@ -61,15 +61,15 @@ public class InMemoryProductRepository implements ProductRepository{
 
     public List<Product> getProductsByCategory(String category) {
         List<Product> productsByCategory = new ArrayList<Product>();
-        for(Product product: listOfProducts) {
-            if(category.equalsIgnoreCase(product.getCategory())) {
+        for (Product product : listOfProducts) {
+            if (category.equalsIgnoreCase(product.getCategory())) {
                 productsByCategory.add(product);
             }
         }
         return productsByCategory;
     }
 
-    public Set<Product> getProductsbyFilter(Map<String, List<String>> filterParams) {
+    public Set<Product> getProductsByFilter(Map<String, List<String>> filterParams) {
         Set<Product> productsByBrand = new HashSet<Product>();
         Set<Product> productsByCategory = new HashSet<Product>();
         Set<String> criterias = filterParams.keySet();
@@ -83,7 +83,7 @@ public class InMemoryProductRepository implements ProductRepository{
                 }
             }
         }
-        if(criterias.contains("category")) {
+        if (criterias.contains("category")) {
             for (String category :
                     filterParams.get("category")) {
                 productsByCategory.addAll(this.getProductsByCategory(category));
@@ -91,5 +91,36 @@ public class InMemoryProductRepository implements ProductRepository{
         }
         productsByCategory.retainAll(productsByBrand);
         return productsByCategory;
+    }
+
+    public Set<Product> getProductsByPriceFilter(Map<String, List<String>> filterParams) {
+        Set<Product> productsByPrice = new HashSet<Product>();
+        Set<String> criterias = filterParams.keySet();
+
+        if(criterias.contains("price")) {
+            if(criterias.contains("low") && criterias.contains("high")) {
+                BigDecimal low = new BigDecimal(filterParams.get("low").get(0));
+                BigDecimal high = new BigDecimal(filterParams.get("high").get(0));
+
+                for (Product product :
+                        listOfProducts) {
+                    if(product.getUnitPrice().compareTo(low) >= 0 &&
+                            product.getUnitPrice().compareTo(high) <= 0) {
+                        productsByPrice.add(product);
+                    }
+                }
+            }
+        }
+        return productsByPrice;
+    }
+
+    public List<Product> getProductsByManufacturer(String manufacturer) {
+        List<Product> productsByManufactuer = new ArrayList<Product>();
+        for (Product product : listOfProducts) {
+            if (manufacturer.equalsIgnoreCase(product.getManufacturer())) {
+                productsByManufactuer.add(product);
+            }
+        }
+        return productsByManufactuer;
     }
 }
