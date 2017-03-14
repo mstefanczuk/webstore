@@ -92,6 +92,7 @@ public class ProductController {
         }
 
         MultipartFile productImage = productToBeAdded.getProductImage();
+        MultipartFile productManual = productToBeAdded.getProductManual();
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
         if (productImage != null && !productImage.isEmpty()) {
             try {
@@ -99,6 +100,15 @@ public class ProductController {
                         + ".png"));
             } catch (Exception e) {
                 throw new RuntimeException("Niepowodzenie podczas próby zapisu obrazka produktu", e);
+            }
+        }
+
+        if (productManual != null && !productManual.isEmpty()) {
+            try {
+                productManual.transferTo(new File(rootDirectory + "resources\\pdf\\" + productToBeAdded.getProductId()
+                        + ".pdf"));
+            } catch (Exception e) {
+                throw new RuntimeException("Niepowodzenie podczas próby zapisu instrukcji obsługi produktu", e);
             }
         }
 

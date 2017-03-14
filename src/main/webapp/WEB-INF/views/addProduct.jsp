@@ -44,6 +44,15 @@
             </div>
 
             <div class="form-group">
+                <label class="control-label col-lg-2" for="productImage">
+                    <spring:message code="addProduct.form.productManual.label"/>
+                </label>
+                <div class="col-lg-10">
+                    <form:input path="productManual" id="productManual" type="file" class="form:input-large"/>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label class="control-label col-lg-2" for="name">Nazwa</label>
                 <div class="col-lg-10">
                     <form:input id="name" path="name" type="text" class="form:input-large"/>
