@@ -44,7 +44,7 @@ public class ProductController {
     @RequestMapping("/{category}")
     public String getProductsByCategory(Model model, @PathVariable("category") String productCategory) {
         List<Product> products = productService.getProductsByCategory(productCategory);
-        if(products == null || products.isEmpty()) {
+        if (products == null || products.isEmpty()) {
             throw new NoProductsFoundUnderCategoryException();
         }
         model.addAttribute("products", productService.getProductsByCategory(productCategory));
@@ -133,8 +133,13 @@ public class ProductController {
         ModelAndView mav = new ModelAndView();
         mav.addObject("invalidProductId", exception.getProductId());
         mav.addObject("exception", exception);
-        mav.addObject("url", req.getRequestURL()+"?"+req.getQueryString());
+        mav.addObject("url", req.getRequestURL() + "?" + req.getQueryString());
         mav.setViewName("productNotFound");
         return mav;
+    }
+
+    @RequestMapping("/invalidPromoCode")
+    public String invalidPromoCode() {
+        return "invalidPromoCode";
     }
 }
