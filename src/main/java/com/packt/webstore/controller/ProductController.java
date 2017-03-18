@@ -4,6 +4,7 @@ import com.packt.webstore.domain.Product;
 import com.packt.webstore.exception.NoProductsFoundUnderCategoryException;
 import com.packt.webstore.exception.ProductNotFoundException;
 import com.packt.webstore.service.ProductService;
+import com.packt.webstore.validator.ProductValidator;
 import com.packt.webstore.validator.UnitInStockValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,7 @@ public class ProductController {
     private ProductService productService;
 
     @Autowired
-    private UnitInStockValidator unitInStockValidator;
+    private ProductValidator productValidator;
 
     @RequestMapping
     public String list(Model model) {
@@ -136,7 +137,7 @@ public class ProductController {
     public void initialiseBinder(WebDataBinder binder) {
 
         binder.setDisallowedFields("unitsInOrder", "discontinued");
-        binder.setValidator(unitInStockValidator);
+        binder.setValidator(productValidator);
     }
 
     @ExceptionHandler(ProductNotFoundException.class)
