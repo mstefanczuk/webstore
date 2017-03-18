@@ -1,5 +1,6 @@
 package com.packt.webstore.domain;
 
+import com.packt.webstore.validator.Category;
 import com.packt.webstore.validator.ProductId;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,8 +23,7 @@ public class Product {
     private BigDecimal unitPrice;
     private String description;
     private String manufacturer;
-    @Size(min = 1, message = "{NotNull.Product.category.validation}")
-    @NotNull(message = "{NotNull.Product.category.validation}")
+    @Category
     private String category;
     @Min(value = 0, message = "{Min.Product.unitsInStock.validation}")
     private long unitsInStock;
