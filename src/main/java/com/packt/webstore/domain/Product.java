@@ -12,26 +12,34 @@ import java.math.BigDecimal;
 
 @XmlRootElement
 public class Product {
+
     @Pattern(regexp = "P[0-p]+", message = "{Pattern.Product.productId.validation}")
     @ProductId
     private String productId;
+
     @Size(min = 4, max = 50, message = "{Size.Product.name.validation}")
     private String name;
+
     @Min(value = 0, message = "{Min.Product.unitPrice.validation}")
     @Digits(integer = 8, fraction = 2, message = "{Digits.Product.unitPrice.validation}")
     @NotNull(message = "{NotNull.Product.unitPrice.validation}")
     private BigDecimal unitPrice;
+
     private String description;
     private String manufacturer;
     @Category
     private String category;
+
     @Min(value = 0, message = "{Min.Product.unitsInStock.validation}")
     private long unitsInStock;
+
     private long unitsInOrder;
     private boolean discontinued;
     private String condition;
+
     @JsonIgnore
     private MultipartFile productImage;
+
     @JsonIgnore
     private MultipartFile productManual;
 
