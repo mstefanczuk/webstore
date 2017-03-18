@@ -22,7 +22,10 @@ public class Product {
     private BigDecimal unitPrice;
     private String description;
     private String manufacturer;
+    @Size(min = 1, message = "{NotNull.Product.category.validation}")
+    @NotNull(message = "{NotNull.Product.category.validation}")
     private String category;
+    @Min(value = 0, message = "{Min.Product.unitsInStock.validation}")
     private long unitsInStock;
     private long unitsInOrder;
     private boolean discontinued;
