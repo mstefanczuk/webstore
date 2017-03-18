@@ -84,9 +84,14 @@
         <property name="springValidators">
             <set>
                 <ref bean="unitInStockValidator"/>
+                <ref bean="productImageValidator"/>
             </set>
         </property>
     </bean>
 
     <bean id="unitsInStockValidator" class="com.packt.webstore.validator.UnitInStockValidator"/>
+
+    <bean id="productImageValidator" class="com.packt.webstore.validator.ProductImageValidator">
+        <property name="allowedSize" value="1024"/>
+    </bean>
 </beans>
