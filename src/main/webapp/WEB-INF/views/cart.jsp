@@ -28,11 +28,12 @@
 
         <div>
             <a class="btn btn-danger pull-left"
-               ng-click="clearCart()"> <span
-                    class="glyphicon glyphicon-remove-sign"></span> Wyczyść koszyk
-            </a> <a href="#" class="btn btn-success pull-right"> <span
-                class="glyphicon-shopping-cart glyphicon"></span> Kupuję
-        </a>
+               ng-click="clearCart()">
+                <span class="glyphicon glyphicon-remove-sign"></span> Wyczyść koszyk
+            </a>
+            <a href="#" class="btn btn-success pull-right">
+                <span class="glyphicon-shopping-cart glyphicon"></span> Kupuję
+            </a>
         </div>
         <table class="table table-hover">
             <tr>
@@ -48,8 +49,8 @@
                 <td>{{item.product.unitPrice}} PLN</td>
                 <td>{{item.quantity}}</td>
                 <td>{{item.totalPrice}} PLN</td>
-                <td><a href="#" class="label label-danger" ng-click="removeFromCart(item.product.productId)"> <span
-                        class="glyphicon glyphicon-remove"/></span> Usuń
+                <td><a href="#" class="label label-danger" ng-click="removeFromCart(item.product.productId)">
+                    <span class="glyphicon glyphicon-remove"/></span> Usuń
                 </a></td>
             </tr>
             <tr>
