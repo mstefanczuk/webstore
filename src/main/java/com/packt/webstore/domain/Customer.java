@@ -1,16 +1,23 @@
 package com.packt.webstore.domain;
 
-public class Customer {
+import java.io.Serializable;
+
+public class Customer implements Serializable{
+
     private String customerId;
     private String name;
-    private String address;
-    private long noOfOrdersMade;
+    private Address billingAddress;
+    private String phoneNumber;
 
-    public Customer(String customerId, String name, String address) {
+    public Customer() {
+        super();
+        this.billingAddress = new Address();
+    }
+
+    public Customer(String customerId, String name) {
+        this();
         this.customerId = customerId;
         this.name = name;
-        this.address = address;
-        noOfOrdersMade = 0;
     }
 
     public String getCustomerId() {
@@ -29,20 +36,20 @@ public class Customer {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
+    public Address getBillingAddress() {
+        return billingAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setBillingAddress(Address billingAddress) {
+        this.billingAddress = billingAddress;
     }
 
-    public long getNoOfOrdersMade() {
-        return noOfOrdersMade;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setNoOfOrdersMade(long noOfOrdersMade) {
-        this.noOfOrdersMade = noOfOrdersMade;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
@@ -52,20 +59,19 @@ public class Customer {
 
         Customer customer = (Customer) o;
 
-        return customerId.equals(customer.customerId);
-
+        if (customerId != null ? !customerId.equals(customer.customerId) : customer.customerId != null) return false;
+        if (name != null ? !name.equals(customer.name) : customer.name != null) return false;
+        if (billingAddress != null ? !billingAddress.equals(customer.billingAddress) : customer.billingAddress != null)
+            return false;
+        return phoneNumber != null ? phoneNumber.equals(customer.phoneNumber) : customer.phoneNumber == null;
     }
 
     @Override
     public int hashCode() {
-        return customerId.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "Customer [" +
-                "customerId='" + customerId + '\'' +
-                ", nazwa='" + name + '\'' +
-                ']';
+        int result = customerId != null ? customerId.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (billingAddress != null ? billingAddress.hashCode() : 0);
+        result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
+        return result;
     }
 }
