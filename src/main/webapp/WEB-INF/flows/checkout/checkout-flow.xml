@@ -29,7 +29,7 @@
         <transition to="thankCustomer"/>
     </action-state>
 
-    <view-state id="InvalidCartWarining">
+    <view-state id="InvalidCartWarning">
         <transition to="endState"/>
     </view-state>
 
@@ -39,9 +39,9 @@
 
     <end-state id="endState"/>
 
-    <end-state id="cancelCheckout" view="checkoutCancelled.jsp"/>
+    <end-state id="cancelCheckout" view="checkOutCancelled.jsp"/>
 
     <global-transitions>
-        <transition on="cancel" to="endState"/>
+        <transition on="cancel" to="cancelCheckout"/>
     </global-transitions>
 </flow>

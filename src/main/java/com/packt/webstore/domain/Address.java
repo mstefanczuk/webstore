@@ -9,7 +9,7 @@ public class Address implements Serializable {
     private String areaName;
     private String state;
     private String country;
-    private String zipcode;
+    private String zipCode;
 
     public String getDoorNo() {
         return doorNo;
@@ -51,12 +51,12 @@ public class Address implements Serializable {
         this.country = country;
     }
 
-    public String getZipcode() {
-        return zipcode;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class Address implements Serializable {
         if (areaName != null ? !areaName.equals(address.areaName) : address.areaName != null) return false;
         if (state != null ? !state.equals(address.state) : address.state != null) return false;
         if (country != null ? !country.equals(address.country) : address.country != null) return false;
-        return zipcode != null ? zipcode.equals(address.zipcode) : address.zipcode == null;
+        return zipCode != null ? zipCode.equals(address.zipCode) : address.zipCode == null;
     }
 
     @Override
@@ -81,7 +81,7 @@ public class Address implements Serializable {
         result = 31 * result + (areaName != null ? areaName.hashCode() : 0);
         result = 31 * result + (state != null ? state.hashCode() : 0);
         result = 31 * result + (country != null ? country.hashCode() : 0);
-        result = 31 * result + (zipcode != null ? zipcode.hashCode() : 0);
+        result = 31 * result + (zipCode != null ? zipCode.hashCode() : 0);
         return result;
     }
 }
