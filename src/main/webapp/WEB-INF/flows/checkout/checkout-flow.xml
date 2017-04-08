@@ -7,12 +7,32 @@
     <action-state id="addCartToOrder">
         <evaluate expression="cartServiceImpl.validate(requestParameters.cartId)" result="order.cart"/>
         <transition to="InvalidCartWarning" on-exception="com.packt.webstore.exception.InvalidCartException"/>
-        <transition to="collectCustomerInfo"/>
+        <transition to="collectCustomerId"/>
+    </action-state>
+
+    <view-state id="collectCustomerId" model="order">
+        <transition on="customerIdCollected" to="checkCustomerExist"/>
+    </view-state>
+
+    <decision-state id="checkCustomerExist">
+        <if test="customerServiceImpl.isCustomerExist(order.customer.customerId)"
+            then="getCustomerFromRepository"
+            else="collectCustomerInfo"/>
+    </decision-state>
+
+    <action-state id="getCustomerFromRepository">
+        <evaluate expression="customerServiceImpl.getCustomer(order.customer.customerId)" result="order.customer"/>
+        <transition to="collectShippingDetail"/>
     </action-state>
 
     <view-state id="collectCustomerInfo" view="collectCustomerInfo.jsp" model="order">
-        <transition on="customerInfoCollected" to="collectShippingDetail"/>
+        <transition on="customerInfoCollected" to="saveCustomerInRepository"/>
     </view-state>
+
+    <action-state id="saveCustomerInRepository">
+        <evaluate expression="customerServiceImpl.saveCustomer(order.customer)"/>
+        <transition to="collectShippingDetail"/>
+    </action-state>
 
     <view-state id="collectShippingDetail" model="order">
         <transition on="shippingDetailCollected" to="orderConfirmation"/>
