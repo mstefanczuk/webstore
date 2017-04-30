@@ -11,7 +11,7 @@ public class Cart implements Serializable{
     private Map<String, CartItem> cartItems;
     private BigDecimal grandTotal;
 
-    private Cart() {
+    public Cart() {
         cartItems = new HashMap<String, CartItem>();
         grandTotal = new BigDecimal(0);
     }
